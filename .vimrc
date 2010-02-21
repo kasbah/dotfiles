@@ -114,3 +114,8 @@ set runtimepath=~/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,~/.vim/afte
 au BufWritePost *.tex silent call Tex_CompileLatex()
 au BufWritePost *.tex silent !pkill -USR1 xdvi.bin
 
+"yaml syntax
+au BufNewFile,BufRead *.yaml,*.yml so ~/.vim/syntax/yaml.vim
+
+"pandoc syntax
+au! Bufread,BufNewFile *.pdc,*.page    set filetype=pdc
