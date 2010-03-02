@@ -13,10 +13,13 @@ main = xmonad $ defaultConfig
 		, manageHook						= myManageHook 
 		, layoutHook						= myLayoutHook 
 		, focusedBorderColor    = "#ee9a00"
+		, normalBorderColor			= "#000000"
 		, startupHook						= startup
 		}
 		`additionalKeys`
 		[ ((mod4Mask, xK_p), spawn "exe=`dmenu_path | /usr/bin/yeganesh -- -i -b -sb orange -nb black -nf grey` && eval \"exec $exe\"")  
+		, ((mod4Mask, xK_o),spawn "/usr/bin/dmenu_run -i -b -sb red -nb grey")  
+		, ((mod4Mask, xK_i),spawn "exe=`dmenu_path | /usr/bin/sudo /usr/bin/yeganesh --profile=sudo -- -i -b -sb black -nb yellow` && eval \"exec $exe\"")  
 		, ((mod4Mask, xK_q),spawn "killall stalonetray xmobar" >> restart "xmonad" True)
 --		, ((0, 0x1008ff13 ), spawn "amixer set Master 1+ unmute")
 --		, ((0, 0x1008ff11 ), spawn "amixer set Master 1- unmute")
@@ -43,3 +46,4 @@ startup :: X ()
 startup = do
 	spawn "xmobar"
 	spawn "stalonetray"
+	spawn "dbus-launch nm-applet --sm-disable"

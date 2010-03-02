@@ -12,9 +12,9 @@
 #exec dbus-launch --exit-with-session openbox-session
 #eval `cat $HOME/.fehbg`
 feh --bg-scale /home/kaspar/Pictures/swahilidark.png
-export AWT_TOOLKIT=MToolkit
-nm-applet 
+#export AWT_TOOLKIT=MToolkit
+#nm-applet 
 xsetroot -cursor_name left_ptr
 keytouchd &
 syndaemon -i 0.5 &
-exec xmonad
+exec ck-launch-session xmonad

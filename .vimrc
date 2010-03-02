@@ -101,7 +101,7 @@ au FileType sh,make let b:comment_leader = '# '
 au FileType tex let b:comment_leader = '% '
 noremap <silent> ,c :<C-B>sil <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:noh<CR>
 noremap <silent> ,u :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:noh<CR>
-" for taglist
+" for VHDL taglist
 let g:tlist_vhdl_settings   = 'vhdl;d:package declarations;b:package bodies;e:entities;a:architecture specifications;t:type declarations;p:processes;f:functions;r:procedures'
 
 filetype plugin indent on
@@ -119,3 +119,16 @@ au BufNewFile,BufRead *.yaml,*.yml so ~/.vim/syntax/yaml.vim
 
 "pandoc syntax
 au! Bufread,BufNewFile *.pdc,*.page    set filetype=pdc
+
+"CTRL -Z
+imap <C-z> <ESC> <C-z> 
+
+"jquery syntax
+au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
+
+"disable auto complete comments on next line
+au FileType * set fo-=c fo-=o fo-=r
+
+au BufRead,BufNewFile *.cg set ft=Cg
+
+colorscheme wombat256

@@ -1,6 +1,12 @@
 #cabal path
 PATH=$PATH:/home/kaspar/.cabal/bin/
+PATH=$PATH:/home/bin/
 # Check for an interactive session
+
+#sudo bash completion
+complete -cf sudo
+alias sudo='sudo '
+
 alias sudo='A=`alias` sudo  '
 [ -z "$PS1" ] && return
 alias ls='ls --color=auto'
@@ -18,6 +24,7 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias hist='history | grep'
 alias remove='rm -f'
+alias show='gpicview'
 alias mountntfs='sudo mount -t ntfs-3g /dev/sda1 /media/ntfs/ -o uid=0,gid=0,noatime,umask=000,locale=en_US.utf8 && thunar /media/ntfs &'
 alias xp='echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\"" && xprop | grep "WM_WINDOW_ROLE\|WM_CLASS"'
 alias spotify='wine "C:\Program Files\Spotify\spotify.exe"'
