@@ -1,6 +1,6 @@
 #cabal path
 PATH=$PATH:/home/kaspar/.cabal/bin/
-PATH=$PATH:/home/bin/
+PATH=$PATH:/home/kaspar/bin/
 # Check for an interactive session
 
 #sudo bash completion
@@ -15,7 +15,6 @@ alias et='urxvt &'
 alias web='firefox &'
 alias x='exit'
 alias q='exit'
-alias :q='exit'
 alias jd='java -jar ~/JDownloader/JDownloader.jar &'
 alias copy='cp -n'
 alias move='mv -f'
@@ -72,20 +71,8 @@ echo $path;
 function dlast () {
 $1 $(echol)
 }
-function mvl() {
-path=~/Downloads/$(ls -cr ~/Downloads | tail --lines=1);
-mv -i $path .;
+
+#working dir switching
+function cwd() {
+	pwd > ~/.cwd;
 }
-function rml() {
-path=~/Downloads/$(ls -cr ~/Downloads | tail --lines=1);
-rm -i $path;
-} 
-function tmpl() {
-path=~/Downloads/$(ls -cr ~/Downloads | tail --lines=1);
-mv -i $path ~/Downloads/store/ && echo "mv -i $path ~/Downloads/store/";
-} 
-function untmpl() {
-path=~/Downloads/store/$(ls -cr ~/Downloads/store/ | tail --lines=1);
-cp -i $path ~/Downloads && echo "mv -i $path ~/Downloads/";
-rm $path
-} 

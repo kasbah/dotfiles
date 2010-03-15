@@ -14,7 +14,7 @@ set mouse=a
 filetype indent on
 
 "toggle search highlight
-map <silent> <F2> :set invhlsearch<CR>
+"map <silent> <F2> :set invhlsearch<CR>
 
 "paste mode buttons
 "toggle with F3, unset and insert with S-i 
@@ -35,12 +35,14 @@ function! ToggleMouse()
 endfunction
 
 " Only do this part when compiled with support for autocommands.
+
 if has("autocmd")
 
   " Enable file type detection.
   " Use the default filetype settings, so that mail gets 'tw' set to 72,
   " 'cindent' is on in C files, etc.
   " Also load indent files, to automatically do language-dependent indenting.
+
   filetype plugin indent on
 
   " Put these in an autocmd group, so that we can delete them easily.
@@ -76,8 +78,8 @@ au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl setf glsl
 " Ctrl-j/k deletes blank line below/above, and Alt-j/k inserts.
 "nnoremap <silent><C-j> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
 "nnoremap <silent><C-k> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
-nnoremap <silent><C-o> :set paste<CR>m`o<Esc>``:set nopaste<CR>
-nnoremap <silent><C-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
+nnoremap <silent><C-k> :set paste<CR>m`o<Esc>``:set nopaste<CR>
+nnoremap <silent><C-j> :set paste<CR>m`O<Esc>``:set nopaste<CR>
 
 "omnifunc autocomplete
 autocmd FileType python set omnifunc=pythoncomplete#Complete
@@ -92,7 +94,8 @@ autocmd FileType tex set makeprg=make
 
 vmap <C-c> "+y     " Yank current selection into system clipboard
 nmap <C-c> "+Y     " Yank current line into system clipboard (if nothing is selected)
-nmap <C-v> "+p     " Paste from system clipboard
+nmap <C-n> <C-q>
+nmap <C-v> "+p
 
 au FileType haskell,vhdl,ada let b:comment_leader = '-- '
 au FileType vim let b:comment_leader = '" '
@@ -115,10 +118,11 @@ au BufWritePost *.tex silent call Tex_CompileLatex()
 au BufWritePost *.tex silent !pkill -USR1 xdvi.bin
 
 "yaml syntax
-au BufNewFile,BufRead *.yaml,*.yml so ~/.vim/syntax/yaml.vim
+"au BufNewFile,BufRead *.yaml,*.yml so ~/.vim/syntax/yaml.vim
+au BufNewFile,BufRead *.yaml,*.yml,*yaml.st set syntax=yaml
 
 "pandoc syntax
-au! Bufread,BufNewFile *.pdc,*.page    set filetype=pdc
+au! Bufread,BufNewFile *.pdc,*.page,*.html.st    set filetype=pdc
 
 "CTRL -Z
 imap <C-z> <ESC> <C-z> 
@@ -132,3 +136,20 @@ au FileType * set fo-=c fo-=o fo-=r
 au BufRead,BufNewFile *.cg set ft=Cg
 
 colorscheme wombat256
+
+"Omnicompletion 
+
+filetype plugin on
+set ofu=syntaxcomplete#Complete
+
+"ctags for system libraries
+set tags+=/usr/include/tags
+
+"for switching
+set hidden
+
+"gf modifciations
+"search recursively downwards from current pathwhite
+set path+=./**
+"rebind gF to create file
+:nnoremap gF :edit <cfile><cr>
