@@ -153,3 +153,6 @@ set hidden
 set path+=./**
 "rebind gF to create file
 :nnoremap gF :edit <cfile><cr>
+
+"expand tabs to spaces
+set expandtab

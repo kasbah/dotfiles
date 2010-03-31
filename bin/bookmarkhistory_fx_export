@@ -1,0 +1,104 @@
+#!/usr/bin/python
+import os
+import pysqlite2.dbapi2 as sqlite
+import shutil
+import ConfigParser
+import random
+import time
+
+# change this if you want:
+DISPLAY_PROFILE_NUMBER = 0
+
+parser = ConfigParser.ConfigParser()
+
+homedir = os.path.expanduser('~')
+moz = '.mozilla/firefox'
+moz_dir = os.path.join(homedir, moz)
+tmpdir = '/tmp'
+FOLDER = 2
+BOOKMARK = 1
+
+
+query_folders = 'SELECT id, title FROM moz_bookmarks WHERE type = 2;'
+query_bookmarks = 'SELECT moz_bookmarks.id, moz_bookmarks.parent, moz_bookmarks.title, moz_places.url \
+                    FROM moz_bookmarks \
+                    INNER JOIN moz_places \
+                    ON moz_bookmarks.fk = moz_places.id \
+                    WHERE moz_bookmarks.type = 1;'
+
+def getprofiles():
+    profilesini = os.path.join(moz_dir, 'profiles.ini')
+    parser.read(profilesini)
+
+    prof = []
+    i = 0
+    while parser.has_section('Profile' + str(i)):
+        name = parser.get('Profile' + str(i), 'Name')
+        path = parser.get('Profile' + str(i), 'Path')
+        prof.append({'name': name, 'path': path})
+        i += 1
+    return prof
+
+def randfilename():
+    tmp = 'moz_bmarx_'
+    for i in range(12):
+        tmp += chr(random.randint(97, 122))
+    return tmp
+
+def opendb(profile):
+    places = os.path.join(moz_dir, profile['path'], 'places.sqlite')
+    tmpfile = os.path.join(tmpdir, randfilename())
+    shutil.copy(places, tmpfile)
+
+    db = sqlite.connect(tmpfile)
+    return db
+
+def printitem(folder, title, url=''):
+     if not title: title="noname"
+     if not folder: folder="nofolder"
+     if not url: url="nourl"
+     print folder.encode("UTF-8")+"\t"+title.encode("UTF-8")+"\t"+url.encode("UTF-8")
+
+
+def printtree(db, parent, recentfolder):
+    cur = db.cursor()
+    query = 'SELECT id, type FROM moz_bookmarks WHERE parent = ' + str(parent)
+    cur.execute(query)
+    res = cur.fetchall()
+
+    for item in res:
+        if item[1] == FOLDER:
+            query_name = 'SELECT title FROM moz_bookmarks WHERE id = ' + str(item[0])
+            cur.execute(query_name)
+            name, = cur.fetchone()
+            
+            printtree(db, item[0], recentfolder+"/"+name)
+
+        if item[1] == BOOKMARK:
+            query_bmark = 'SELECT moz_bookmarks.title, moz_places.url \
+                    FROM moz_bookmarks \
+                    INNER JOIN moz_places \
+                    ON moz_bookmarks.fk = moz_places.id \
+                    WHERE moz_bookmarks.id = ' + str(item[0])
+            cur.execute(query_bmark)
+            title, url = cur.fetchone()
+            if url[0:5]=="place": continue
+            printitem(recentfolder, title, url)
+
+def allhistory(db):
+    cur=db.cursor()
+    query_history = 'SELECT moz_historyvisits.visit_date, moz_places.title, moz_places.url FROM moz_historyvisits INNER JOIN moz_places ON moz_historyvisits.place_id = moz_places.id ORDER BY moz_historyvisits.visit_date DESC;'
+    cur.execute(query_history)
+    res = cur.fetchall()
+    for item in res:
+        printitem(time.ctime(item[0]/1000000),item[1],item[2])
+
+profs = getprofiles()
+prf = profs[DISPLAY_PROFILE_NUMBER]
+print prf['name']
+db = opendb(prf)
+print 'Bookmarks from Profile ' + prf['name']
+
+printtree(db, 1, "")
+
+allhistory(db)

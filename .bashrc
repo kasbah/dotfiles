@@ -3,6 +3,9 @@ PATH=$PATH:/home/kaspar/.cabal/bin/
 PATH=$PATH:/home/kaspar/bin/
 # Check for an interactive session
 
+#source z
+source ~/bin/z.sh
+
 #sudo bash completion
 complete -cf sudo
 alias sudo='sudo '

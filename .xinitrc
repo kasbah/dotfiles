@@ -4,7 +4,7 @@
 #
 # Executed by startx (run your window manager from here)
 
-# exec gnome-session
+#exec gnome-session
 # exec startkde
 # exec startxfce4
 # ...or the Window Manager of your choice
@@ -13,7 +13,7 @@
 #eval `cat $HOME/.fehbg`
 feh --bg-scale /home/kaspar/Pictures/swahilidark.png
 export AWT_TOOLKIT=MToolkit
-#nm-applet 
+nm-applet 
 xsetroot -cursor_name left_ptr
 keytouchd &
 syndaemon -i 0.5 &

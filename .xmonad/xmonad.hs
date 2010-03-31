@@ -1,4 +1,4 @@
-import XMonad 
+import XMonad hiding (Tall)
 import XMonad.Hooks.DynamicLog
 import XMonad.Layout.NoBorders
 import XMonad.Hooks.ManageDocks
@@ -7,9 +7,15 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Util.CustomKeys
 import XMonad.Util.EZConfig
 import XMonad.Layout.Magnifier as Mag
+import XMonad.Layout.BoringWindows
 import XMonad.Layout.MouseResizableTile
 import XMonad.Layout.SimpleFloat
+import XMonad.Layout.TwoPane
 import XMonad.Layout.ToggleLayouts as Lay
+import XMonad.Layout.LayoutCombinators hiding ((|||))
+import XMonad.Layout.Tabbed
+
+
 
 main = xmonad $ defaultConfig
 		{ terminal						  = "cat ~/.cwd | xargs urxvt -cd"
@@ -29,18 +35,19 @@ main = xmonad $ defaultConfig
 --		, ((0, 0x1008ff11 ), spawn "amixer set Master 1- unmute")
 --		, ((0, 0x1008ff12 ), spawn "amixer set Master toggle")
 --		, ((0, 0x1008ff59 ), spawn "sudo pm-suspend")
-		, ((0, 0x1008ff2a ), spawn "sudo halt")
+--		, ((0, 0x1008ff2a ), spawn "sudo halt")
 		, ((mod4Mask , xK_m    ), sendMessage Mag.Toggle   )
 --		, ((mod4Mask, xK_backslash), withFocused (sendMessage . maximizeRestore))
     , ((mod4Mask,  xK_f ),  sendMessage Lay.ToggleLayout )
 	]
 --myLayoutHook = avoidStruts . smartBorders . maximizeVertical . mouseResizableTile $ layoutHook defaultConfig
-myLayoutHook = avoidStruts . smartBorders . Mag.maximizeVertical $ (toggleLayouts simpleFloat mouseResizableTile ||| Full)
+myLayoutHook = avoidStruts . boringWindows . smartBorders . Mag.maximizeVertical $ (toggleLayouts (TwoPane (3/100) (1/2)) mouseResizableTile ||| Full ||| gimpLayout)
   where
-    tall       = Tall nmaster delta ratio
-    nmaster    = 1
-    delta      = 0.03
-    ratio      = 0.5
+  gimpLayout = (simpleTabbed ****||* Full)
+--    hintedTile = HintedTile nmaster delta ratio TopLeft
+--    nmaster    = 1
+--    delta      = 0.03
+--    ratio      = 0.5
 
 myManageHook = composeAll $ 
 	[ resource =? name --> doIgnore | name <- ignore ]
