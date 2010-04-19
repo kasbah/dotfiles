@@ -49,7 +49,7 @@ main = xmonad $ defaultConfig
 --		, ((mod4Mask, xK_backslash), withFocused (sendMessage . maximizeRestore))
 	]
 --myLayoutHook = avoidStruts . smartBorders . Mag.maximizeVertical $ (named "default" (toggleLayouts Full mouseResizableTile) ||| named "two pane" (TwoPane (3/100) (1/2) ) |||  named "full" Full ||| gimpLayout)
-myLayoutHook = avoidStruts . smartBorders . Mag.maximizeVertical $ (named "default" mouseResizableTile ||| named "two pane" (TwoPane (3/100) (1/2) ) |||  named "full" Full ||| gimpLayout)
+myLayoutHook = avoidStruts . smartBorders $ (named "default" mouseResizableTile ||| named "two pane" (TwoPane (3/100) (1/2) ) |||  named "full" Full ||| gimpLayout)
   where
   gimpLayout = named "gimp layout" (simpleTabbed ****||* Full)
 --    hintedTile = HintedTile nmaster delta ratio TopLeft
