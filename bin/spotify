@@ -1,0 +1,3 @@
+#! /bin/bash
+cd /home/kaspar/.wine/drive_c/Program\ Files/Spotify/
+wine spotify.exe &

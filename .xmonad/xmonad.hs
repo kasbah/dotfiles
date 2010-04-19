@@ -1,4 +1,4 @@
-import XMonad 
+import XMonad hiding ( (|||), Tall )
 import XMonad.Hooks.DynamicLog
 import XMonad.Layout.NoBorders
 import XMonad.Hooks.ManageDocks
@@ -7,9 +7,16 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Util.CustomKeys
 import XMonad.Util.EZConfig
 import XMonad.Layout.Magnifier as Mag
+import XMonad.Layout.BoringWindows
 import XMonad.Layout.MouseResizableTile
 import XMonad.Layout.SimpleFloat
-import XMonad.Layout.ToggleLayouts as Lay
+import XMonad.Layout.TwoPane
+import XMonad.Layout.LayoutCombinators
+import XMonad.Layout.Tabbed
+import Data.Monoid
+import XMonad.Layout.Named
+import XMonad.Actions.CycleSelectedLayouts as Cycle
+import XMonad.Actions.RotSlaves
 
 main = xmonad $ defaultConfig
 		{ terminal						  = "cat ~/.cwd | xargs urxvt -cd"
@@ -29,29 +36,39 @@ main = xmonad $ defaultConfig
 --		, ((0, 0x1008ff11 ), spawn "amixer set Master 1- unmute")
 --		, ((0, 0x1008ff12 ), spawn "amixer set Master toggle")
 --		, ((0, 0x1008ff59 ), spawn "sudo pm-suspend")
-		, ((0, 0x1008ff2a ), spawn "sudo halt")
-		, ((mod4Mask , xK_m    ), sendMessage Mag.Toggle   )
+--		, ((0, 0x1008ff2a ), spawn "sudo halt")
+		, ((mod4Mask, xK_m    ), sendMessage Mag.Toggle   )
+--		, ((mod4Mask, xK_f    ), fullFloatFocused)
+		, ((mod4Mask, xK_g    ), Cycle.cycleThroughLayouts ["gimp layout", "default"])
+    , ((mod4Mask, xK_space), Cycle.cycleThroughLayouts ["full", "default"])
+    , ((mod4Mask, xK_d    ), Cycle.cycleThroughLayouts ["two pane", "default"])
+    , ((mod4Mask, xK_s    ), rotSlavesUp )
+    , ((mod4Mask, xK_f    ), sendMessage ToggleStruts)
+--    , ((mod4Mask, xK_m    ), spawn "xcalib -invert -alter")
+    , ((mod3Mask,  xK_t),  sendMessage Mag.Toggle )
 --		, ((mod4Mask, xK_backslash), withFocused (sendMessage . maximizeRestore))
-    , ((mod4Mask,  xK_f ),  sendMessage Lay.ToggleLayout )
 	]
---myLayoutHook = avoidStruts . smartBorders . maximizeVertical . mouseResizableTile $ layoutHook defaultConfig
-myLayoutHook = avoidStruts . smartBorders . Mag.maximizeVertical $ (toggleLayouts simpleFloat mouseResizableTile ||| Full)
+--myLayoutHook = avoidStruts . smartBorders . Mag.maximizeVertical $ (named "default" (toggleLayouts Full mouseResizableTile) ||| named "two pane" (TwoPane (3/100) (1/2) ) |||  named "full" Full ||| gimpLayout)
+myLayoutHook = avoidStruts . smartBorders $ (named "default" mouseResizableTile ||| named "two pane" (TwoPane (3/100) (1/2) ) |||  named "full" Full ||| gimpLayout)
   where
-    tall       = Tall nmaster delta ratio
-    nmaster    = 1
-    delta      = 0.03
-    ratio      = 0.5
+  gimpLayout = named "gimp layout" (simpleTabbed ****||* Full)
+--    hintedTile = HintedTile nmaster delta ratio TopLeft
+--    nmaster    = 1
+--    delta      = 0.03
+--    ratio      = 0.5
+
+--fullFloatFocused = withFocused $ \f -> windows =<< appEndo `fmap` runQuery doFullFloat f
 
 myManageHook = composeAll $ 
 	[ resource =? name --> doIgnore | name <- ignore ]
 	++[ title =? name --> doCenterFloat | name <- floaters ]
 	++[ resource =? name --> doCenterFloat | name <- floaters ]
-	++[ manageDocks <+> manageHook defaultConfig
+  ++[ manageDocks <+> manageHook defaultConfig
 		,(isFullscreen --> doFullFloat) --full float fullscreen flash
 		]
 --	++[ resource =? name --> doFloat | name <- floaters ]
 	where
-		floaters = ["xcalc", "glut", "yakuake"]
+		floaters = ["xcalc", "glut", "yakuake", "galculator", "gcalctool"]
 		ignore = ["stalonetray"]
 					 
 startup :: X ()

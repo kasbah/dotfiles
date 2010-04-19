@@ -1,2 +1,5 @@
 [alias]
 	co = checkout
+[user]
+	email = kaspar@gmail.com
+	name = Kaspar Bumke

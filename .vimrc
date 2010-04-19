@@ -78,8 +78,13 @@ au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl setf glsl
 " Ctrl-j/k deletes blank line below/above, and Alt-j/k inserts.
 "nnoremap <silent><C-j> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
 "nnoremap <silent><C-k> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
-nnoremap <silent><C-k> :set paste<CR>m`o<Esc>``:set nopaste<CR>
-nnoremap <silent><C-j> :set paste<CR>m`O<Esc>``:set nopaste<CR>
+"nnoremap <silent><C-k> :set paste<CR>m`o<Esc>``:set nopaste<CR>
+"nnoremap <silent><C-k> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
+"scroll without moving cursor
+set nocompatible
+let g:C_Ctrl_j =0 
+autocmd FileType * nmap <silent><C-j> <C-e>
+nmap <silent><C-k> <C-y>
 
 "omnifunc autocomplete
 autocmd FileType python set omnifunc=pythoncomplete#Complete
@@ -142,7 +147,7 @@ filetype plugin on
 set ofu=syntaxcomplete#Complete
 
 "ctags for system libraries
-set tags+=/usr/include/tags
+"set tags+=/usr/include/tags
 
 "for switching
 set hidden
@@ -151,6 +156,14 @@ set hidden
 "search recursively downwards from current pathwhite
 set path+=./**
 "rebind gF to create file
-:nnoremap gF :edit <cfile><cr>
-
+nnoremap gF :edit <cfile><cr>
 colorscheme wombat256
+
+"expand tabs to spaces
+set expandtab
+
+"switch buffers with arrow keys
+nmap <silent><Left> :bprevious <cr>
+nmap <silent><Right> :bnext <cr>
+nmap <silent><Down> <C-w>s :bprevious <cr>
+nmap <silent><Up> <C-w>s :bnext <cr>
