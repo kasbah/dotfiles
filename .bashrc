@@ -1,3 +1,6 @@
+if [ -f .bashrc.ubuntu] then
+	source .bashrc.ubuntu
+fi
 #cabal path
 PATH=$PATH:/home/kaspar/.cabal/bin/
 PATH=$PATH:/home/kaspar/bin/
