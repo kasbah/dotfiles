@@ -135,7 +135,6 @@ au FileType * set fo-=c fo-=o fo-=r
 
 au BufRead,BufNewFile *.cg set ft=Cg
 
-colorscheme wombat256
 
 "Omnicompletion 
 
@@ -153,3 +152,5 @@ set hidden
 set path+=./**
 "rebind gF to create file
 :nnoremap gF :edit <cfile><cr>
+
+colorscheme wombat256
