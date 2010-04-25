@@ -36,7 +36,7 @@ main = xmonad $ defaultConfig
 --		, ((0, 0x1008ff11 ), spawn "amixer set Master 1- unmute")
 --		, ((0, 0x1008ff12 ), spawn "amixer set Master toggle")
 --		, ((0, 0x1008ff59 ), spawn "sudo pm-suspend")
---		, ((0, 0x1008ff2a ), spawn "sudo halt")
+		, ((0, 0x1008ff2a ), spawn "sudo halt")
 		, ((mod4Mask, xK_m    ), sendMessage Mag.Toggle   )
 --		, ((mod4Mask, xK_f    ), fullFloatFocused)
 		, ((mod4Mask, xK_g    ), Cycle.cycleThroughLayouts ["gimp layout", "default"])

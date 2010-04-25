@@ -79,3 +79,12 @@ $1 $(echol)
 function cwd() {
 	pwd > ~/.cwd;
 }
+
+source /etc/bash_completion
+
+#git PS1
+GIT_PS1_SHOWDIRTYSTATE=1 #... untagged(*) and staged(+) changes
+GIT_PS1_SHOWSTASHSTATE=1 #... if something is stashed($)
+GIT_PS1_SHOWUNTRACKEDFILES=1 #... untracked files(%)
+
+PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
