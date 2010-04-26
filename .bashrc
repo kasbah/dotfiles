@@ -1,3 +1,5 @@
+#editor
+export EDITOR="/usr/bin/vim"
 #cabal path
 PATH=$PATH:/home/kaspar/.cabal/bin/
 PATH=$PATH:/home/kaspar/bin/
