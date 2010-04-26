@@ -3,6 +3,8 @@
 !.xinitrc
 !.vim*
 !.vim/*
+!.vim/*/*
+!.vim/*/*/*
 !.xmonad*
 !.xmonad/*
 !.bashrc*
