@@ -2,6 +2,7 @@
 !.gitignore
 !.xinitrc
 !.vim*
+!.vim/*
 !.xmonad*
 !.xmonad/*
 !.bashrc*

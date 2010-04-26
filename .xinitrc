@@ -8,7 +8,7 @@
 # exec startxfce4
 # ...or the Window Manager of your choice
 #eval `cat $HOME/.fehbg`
-feh --bg-scale /home/kaspar/Pictures/swahilidark.png
+feh --bg-scale /home/kaspar/Pictures/Greedeater_bg.png
 #feh --bg-scale /home/kaspar/Pictures/Greedeater_full.jpg
 export AWT_TOOLKIT=MToolkit
 #nm-applet 
