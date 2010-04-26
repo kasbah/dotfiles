@@ -3,8 +3,11 @@
 !.xinitrc
 !.vim*
 !.xmonad*
+!.xmonad/*
 !.bashrc*
 !bin/
 !.Xdefaults
 !.ctags
 .viminfo
+.*~
+*.o
