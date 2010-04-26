@@ -11,3 +11,5 @@
 .viminfo
 .*~
 *.o
+*.tmp
+*.sw*
