@@ -1,0 +1,11 @@
+#! /usr/bin/perl
+#pushes anything that gets selected in urxvt to both the primary selection and the clipboard
+#save it to /usr/lib/urxvt/perl, and enable in the "urxvt*perl-ext-common:" line in ~/.Xdefaults:
+#urxvt*perl-ext-common:      default,matcher,clipboard
+
+sub on_sel_grab {
+    my $query = quotemeta $_[0]->selection;
+    $query =~ s/\n/\\n/g;
+    $query =~ s/\r/\\r/g;
+    system( "echo -en " . $query . " | xsel -ibp" );
+}

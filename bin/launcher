@@ -1,0 +1,5 @@
+#! /bin/bash
+#url=$(./bookmarkhistory_fx_export | dmenu -i -l 7 -rs -ni -xs | cut -sf3)
+url=$(./bookmarkhistory_fx_export | dmenu -i | cut -sf3)
+[ -z "$url" ] && exit
+firefox "$url"
