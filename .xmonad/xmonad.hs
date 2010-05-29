@@ -48,16 +48,10 @@ main = xmonad $ defaultConfig
     , ((mod4Mask,  xK_t),  sendMessage Mag.Toggle )
 --		, ((mod4Mask, xK_backslash), withFocused (sendMessage . maximizeRestore))
 	]
---myLayoutHook = avoidStruts . smartBorders . Mag.maximizeVertical $ (named "default" (toggleLayouts Full mouseResizableTile) ||| named "two pane" (TwoPane (3/100) (1/2) ) |||  named "full" Full ||| gimpLayout)
+
 myLayoutHook = avoidStruts . smartBorders $ (named "default" mouseResizableTile ||| named "two pane" (TwoPane (3/100) (1/2) ) |||  named "full" Full ||| gimpLayout)
   where
   gimpLayout = named "gimp layout" (simpleTabbed ****||* Full)
---    hintedTile = HintedTile nmaster delta ratio TopLeft
---    nmaster    = 1
---    delta      = 0.03
---    ratio      = 0.5
-
---fullFloatFocused = withFocused $ \f -> windows =<< appEndo `fmap` runQuery doFullFloat f
 
 myManageHook = composeAll $ 
 	[ resource =? name --> doIgnore | name <- ignore ]
@@ -66,7 +60,6 @@ myManageHook = composeAll $
   ++[ manageDocks <+> manageHook defaultConfig
 		,(isFullscreen --> doFullFloat) --full float fullscreen flash
 		]
---	++[ resource =? name --> doFloat | name <- floaters ]
 	where
 		floaters = ["xcalc", "glut", "yakuake", "galculator", "gcalctool"]
 		ignore = ["stalonetray"]
