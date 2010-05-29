@@ -45,7 +45,7 @@ main = xmonad $ defaultConfig
     , ((mod4Mask, xK_s    ), rotSlavesUp )
     , ((mod4Mask, xK_f    ), sendMessage ToggleStruts)
 --    , ((mod4Mask, xK_m    ), spawn "xcalib -invert -alter")
-    , ((mod3Mask,  xK_t),  sendMessage Mag.Toggle )
+    , ((mod4Mask,  xK_t),  sendMessage Mag.Toggle )
 --		, ((mod4Mask, xK_backslash), withFocused (sendMessage . maximizeRestore))
 	]
 --myLayoutHook = avoidStruts . smartBorders . Mag.maximizeVertical $ (named "default" (toggleLayouts Full mouseResizableTile) ||| named "two pane" (TwoPane (3/100) (1/2) ) |||  named "full" Full ||| gimpLayout)
