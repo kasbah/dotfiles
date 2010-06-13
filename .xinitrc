@@ -8,13 +8,14 @@
 # exec startxfce4
 # ...or the Window Manager of your choice
 #eval `cat $HOME/.fehbg`
-feh --bg-scale /home/kaspar/Pictures/Greedeater_bg.png
+feh --bg-center /home/kaspar/Pictures/yellow_eyes.png
 #feh --bg-scale /home/kaspar/Pictures/Greedeater_full.jpg
 export AWT_TOOLKIT=MToolkit
 #nm-applet 
 xsetroot -cursor_name left_ptr
-keytouchd &
-syndaemon -i 0.5 &
+#keytouchd &
+/etc/X11/Xsession
+syndaemon -i 0.5 >> ~/.syndaemon.log&
 echo ~ > ~/.cwd &
 exec ck-launch-session xmonad
 #exec openbox-session

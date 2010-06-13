@@ -81,10 +81,10 @@ au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl setf glsl
 "nnoremap <silent><C-k> :set paste<CR>m`o<Esc>``:set nopaste<CR>
 "nnoremap <silent><C-k> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
 "scroll without moving cursor
-set nocompatible
-let g:C_Ctrl_j =0 
-autocmd FileType * nmap <silent><C-j> <C-e>
-nmap <silent><C-k> <C-y>
+"set nocompatible
+"let g:C_Ctrl_j =0 
+"autocmd FileType * nmap <silent><C-j> <C-e>
+"nmap <silent><C-k> <C-y>
 
 "omnifunc autocomplete
 "autocmd FileType python set omnifunc=pythoncomplete#Complete
@@ -95,32 +95,39 @@ nmap <silent><C-k> <C-y>
 "autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 "autocmd FileType c set omnifunc=ccomplete#Complete
 
-autocmd FileType tex set makeprg=make
 
 vmap <C-c> "+y     " Yank current selection into system clipboard
 nmap <C-c> "+Y     " Yank current line into system clipboard (if nothing is selected)
 nmap <C-n> <C-q>
 nmap <C-v> "+p
 
-au FileType haskell,vhdl,ada let b:comment_leader = '-- '
-au FileType vim let b:comment_leader = '" '
-au FileType c,cpp,java let b:comment_leader = '// '
-au FileType sh,make let b:comment_leader = '# '
-au FileType tex let b:comment_leader = '% '
-noremap <silent> ,c :<C-B>sil <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:noh<CR>
-noremap <silent> ,u :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:noh<CR>
+"au FileType haskell,vhdl,ada let b:comment_leader = '-- '
+"au FileType vim let b:comment_leader = '" '
+"au FileType c,cpp,java let b:comment_leader = '// '
+"au FileType sh,make let b:comment_leader = '# '
+"au FileType tex let b:comment_leader = '% '
+"noremap <silent> ,c :<C-B>sil <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:noh<CR>
+"noremap <silent> ,u :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:noh<CR>
 " for VHDL taglist
 let g:tlist_vhdl_settings   = 'vhdl;d:package declarations;b:package bodies;e:entities;a:architecture specifications;t:type declarations;p:processes;f:functions;r:procedures'
 
+"latexsuite settings
 filetype plugin indent on
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor = "latex"
+let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'
+let g:Tex_DefaultTargetFormat = 'pdf'
+let g:Tex_ViewRule_pdf = 'evince'
+"autocmd FileType tex set makeprg=make
+let g:Tex_UseMakefile = 1
+nmap \ll \ll :cclose
 
-set runtimepath=~/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,~/.vim/after
+"required for omnicompletion?
+"set runtimepath=~/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,~/.vim/after
 
 "latex auto compile on save
-au BufWritePost *.tex silent call Tex_CompileLatex()
-au BufWritePost *.tex silent !pkill -USR1 xdvi.bin
+"au BufWritePost *.tex silent call Tex_CompileLatex()
+"au BufWritePost *.tex silent !pkill -USR1 xdvi.bin
 
 "yaml syntax
 "au BufNewFile,BufRead *.yaml,*.yml so ~/.vim/syntax/yaml.vim
@@ -145,6 +152,7 @@ au BufRead,BufNewFile *.cg set ft=Cg
 
 filetype plugin on
 set ofu=syntaxcomplete#Complete
+set complete-=i
 
 "ctags for system libraries
 "set tags+=/usr/include/tags
@@ -158,6 +166,7 @@ set path+=./**
 "rebind gF to create file
 nnoremap gF :edit <cfile><cr>
 colorscheme wombat256
+"colorscheme print_bw
 
 "expand tabs to spaces
 set expandtab

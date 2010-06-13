@@ -10,6 +10,7 @@ import XMonad.Layout.Magnifier as Mag
 import XMonad.Layout.BoringWindows
 import XMonad.Layout.MouseResizableTile
 import XMonad.Layout.SimpleFloat
+import XMonad.Layout.DragPane
 import XMonad.Layout.TwoPane
 import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.Tabbed
@@ -17,6 +18,7 @@ import Data.Monoid
 import XMonad.Layout.Named
 import XMonad.Actions.CycleSelectedLayouts as Cycle
 import XMonad.Actions.RotSlaves
+import XMonad.Layout.WindowNavigation
 
 main = xmonad $ defaultConfig
 		{ terminal						  = "cat ~/.cwd | xargs urxvt -cd"
@@ -40,18 +42,28 @@ main = xmonad $ defaultConfig
 		, ((mod4Mask, xK_m    ), sendMessage Mag.Toggle   )
 --		, ((mod4Mask, xK_f    ), fullFloatFocused)
 		, ((mod4Mask, xK_g    ), Cycle.cycleThroughLayouts ["gimp layout", "default"])
+		, ((mod4Mask, xK_r    ), Cycle.cycleThroughLayouts ["pdf layout", "default"])
     , ((mod4Mask, xK_space), Cycle.cycleThroughLayouts ["full", "default"])
     , ((mod4Mask, xK_d    ), Cycle.cycleThroughLayouts ["two pane", "default"])
     , ((mod4Mask, xK_s    ), rotSlavesUp )
     , ((mod4Mask, xK_f    ), sendMessage ToggleStruts)
 --    , ((mod4Mask, xK_m    ), spawn "xcalib -invert -alter")
-    , ((mod4Mask,  xK_t),  sendMessage Mag.Toggle )
+    , ((mod4Mask,  xK_w),  sendMessage Mag.Toggle )
 --		, ((mod4Mask, xK_backslash), withFocused (sendMessage . maximizeRestore))
+    , ((mod4Mask,                 xK_Right), sendMessage $ Go R)
+    , ((mod4Mask,                 xK_Left ), sendMessage $ Go L)
+    , ((mod4Mask,                 xK_Up   ), sendMessage $ Go U)
+    , ((mod4Mask,                 xK_Down ), sendMessage $ Go D)
+    , ((mod4Mask .|. shiftMask, xK_Right), sendMessage $ Swap R)
+    , ((mod4Mask .|. shiftMask, xK_Left ), sendMessage $ Swap L)
+    , ((mod4Mask .|. shiftMask, xK_Up   ), sendMessage $ Swap U)
+    , ((mod4Mask .|. shiftMask, xK_Down ), sendMessage $ Swap D)
 	]
 
-myLayoutHook = avoidStruts . smartBorders $ (named "default" mouseResizableTile ||| named "two pane" (TwoPane (3/100) (1/2) ) |||  named "full" Full ||| gimpLayout)
+myLayoutHook = windowNavigation . avoidStruts . smartBorders $ (named "default" mouseResizableTile ||| named "two pane" (TwoPane (3/100) (1/2) ) |||  named "full" Full ||| gimpLayout ||| pdfLayout)
   where
-  gimpLayout = named "gimp layout" (simpleTabbed ****||* Full)
+  gimpLayout = named "gimp layout" (simpleTabbed ****||* simpleTabbed)
+  pdfLayout = named "pdf layout" (simpleTabbed *||* mouseResizableTile)
 
 myManageHook = composeAll $ 
 	[ resource =? name --> doIgnore | name <- ignore ]
@@ -61,7 +73,7 @@ myManageHook = composeAll $
 		,(isFullscreen --> doFullFloat) --full float fullscreen flash
 		]
 	where
-		floaters = ["xcalc", "glut", "yakuake", "galculator", "gcalctool"]
+		floaters = ["xcalc", "galculator", "gcalctool"]
 		ignore = ["stalonetray"]
 					 
 startup :: X ()

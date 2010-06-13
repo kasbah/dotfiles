@@ -1,3 +1,4 @@
+#set -o vi
 #editor
 export EDITOR="/usr/bin/vim"
 #cabal path
@@ -18,8 +19,6 @@ alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 alias et='urxvt &'
 alias web='firefox &'
-alias x='exit'
-alias q='exit'
 alias jd='java -jar ~/JDownloader/JDownloader.jar &'
 alias copy='cp -n'
 alias move='mv -f'
@@ -29,9 +28,9 @@ alias rm='rm -i'
 alias hist='history | grep'
 alias remove='rm -f'
 alias show='gpicview'
-alias mountntfs='sudo mount -t ntfs-3g /dev/sda1 /media/ntfs/ -o uid=0,gid=0,noatime,umask=000,locale=en_US.utf8 && thunar /media/ntfs &'
 alias xp='echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\"" && xprop | grep "WM_WINDOW_ROLE\|WM_CLASS"'
 alias spotify='wine "C:\Program Files\Spotify\spotify.exe"'
+alias xo='xdg-open'
 HISTSIZE=5000
 extract () {
   if [ -f $1 ] ; then
