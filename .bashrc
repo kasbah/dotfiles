@@ -7,6 +7,9 @@ PATH=$PATH:/home/kaspar/bin/
 
 #source z
 source ~/bin/z.sh
+function zp() {
+z $1 $2 $3 $4 && pwd
+}
 
 #sudo bash completion
 complete -cf sudo

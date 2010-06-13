@@ -2,7 +2,6 @@ URxvt.scrollBar:false
 URxvt*font: xft:Bitstream Vera Sans Mono:pixelsize=13:antialias=true:hinting=true
 
 
-*termName: xterm-256color
 
 !Theme Nine
 *background: rgb:1a/1a/1a
