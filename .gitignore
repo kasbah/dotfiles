@@ -11,6 +11,10 @@
 !bin/
 !.Xdefaults
 !.ctags
+!.terminfo*
+!.terminfo/*
+!.terminfo/*/*
+.viminfo
 .*~
 *.o
 *.tmp
