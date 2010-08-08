@@ -12,6 +12,9 @@
 !.Xdefaults
 !.ctags
 !.timetrap.db
+!.terminfo*
+!.terminfo/*
+!.terminfo/*/*
 .viminfo
 .*~
 *.o
