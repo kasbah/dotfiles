@@ -174,8 +174,8 @@ set expandtab
 "switch buffers with arrow keys
 nmap <silent><Left> :bprevious <cr>
 nmap <silent><Right> :bnext <cr>
-nmap <silent><Down> <C-w>s :bprevious <cr>
-nmap <silent><Up> <C-w>s :bnext <cr>
+"nmap <silent><Down> <C-w>s :bprevious <cr>
+"nmap <silent><Up> <C-w>s :bnext <cr>
 
 "chuck syntax highlighting
 au BufNewFile,BufRead *.ck          setf ck 
