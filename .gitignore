@@ -20,3 +20,7 @@
 *.o
 *.tmp
 *.sw*
+!repair
+repair/*
+!repair/expenses
+!repair/buy_list
