@@ -15,6 +15,10 @@ function zp() {
 z $1 $2 $3 $4 && pwd
 }
 
+#timetrap sync
+alias tup="rsync ~/.timetrap.db kaspar@kaspar.webhop.net:.timetrap.db"
+alias tdown="rsync kaspar@kaspar.webhop.net:.timetrap.db ~/.timetrap.db"
+
 #sudo bash completion
 complete -cf sudo
 alias sudo='sudo '
