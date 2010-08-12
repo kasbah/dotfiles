@@ -1,9 +1,11 @@
 #set -o vi
+
 #editor
 export EDITOR="/usr/bin/vim"
 #cabal path
 PATH=$PATH:/home/kaspar/.cabal/bin/
 PATH=$PATH:/home/kaspar/bin/
+PATH=$PATH:/var/lib/gems/1.8/bin
 # Check for an interactive session
 
 #source z
