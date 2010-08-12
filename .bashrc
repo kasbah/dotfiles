@@ -95,4 +95,4 @@ function cwd() {
 #GIT_PS1_SHOWSTASHSTATE=1 #... if something is stashed($)
 #GIT_PS1_SHOWUNTRACKEDFILES=1 #... untracked files(%)
 
-PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
+#PS1='[\u@\h \W$(_git_ps1 " (%s)")]\$ '
