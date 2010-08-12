@@ -109,18 +109,18 @@ nmap <C-v> "+p
 "noremap <silent> ,c :<C-B>sil <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:noh<CR>
 "noremap <silent> ,u :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:noh<CR>
 " for VHDL taglist
-let g:tlist_vhdl_settings   = 'vhdl;d:package declarations;b:package bodies;e:entities;a:architecture specifications;t:type declarations;p:processes;f:functions;r:procedures'
+"let g:tlist_vhdl_settings   = 'vhdl;d:package declarations;b:package bodies;e:entities;a:architecture specifications;t:type declarations;p:processes;f:functions;r:procedures'
 
 "latexsuite settings
-filetype plugin indent on
-set grepprg=grep\ -nH\ $*
-let g:tex_flavor = "latex"
-let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'
-let g:Tex_DefaultTargetFormat = 'pdf'
-let g:Tex_ViewRule_pdf = 'evince'
+"filetype plugin indent on
+"set grepprg=grep\ -nH\ $*
+"let g:tex_flavor = \"latex"
+"let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'
+"let g:Tex_DefaultTargetFormat = 'pdf'
+"let g:Tex_ViewRule_pdf = 'evince'
 "autocmd FileType tex set makeprg=make
-let g:Tex_UseMakefile = 1
-nmap \ll \ll :cclose
+"let g:Tex_UseMakefile = 1
+"nmap \ll \ll :cclose
 
 "required for omnicompletion?
 "set runtimepath=~/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,~/.vim/after
@@ -134,7 +134,9 @@ nmap \ll \ll :cclose
 au BufNewFile,BufRead *.yaml,*.yml,*yaml.st set syntax=yaml
 
 "pandoc syntax
-au! Bufread,BufNewFile *.pdc,*.page,*.html.st    set filetype=pdc
+au! Bufread,BufNewFile *.pdc  set filetype=pdc
+"markdown syntax
+au! Bufread,BufNewFile .page,*.st    set filetype=mkd
 
 "CTRL -Z
 imap <C-z> <ESC> <C-z> 
@@ -150,9 +152,9 @@ au BufRead,BufNewFile *.cg set ft=Cg
 
 "Omnicompletion 
 
-filetype plugin on
-set ofu=syntaxcomplete#Complete
-set complete-=i
+"filetype plugin on
+"set ofu=syntaxcomplete#Complete
+"set complete-=i
 
 "ctags for system libraries
 "set tags+=/usr/include/tags
@@ -162,14 +164,14 @@ set hidden
 
 "gf modifciations
 "search recursively downwards from current pathwhite
-set path+=./**
+"set path+=./**
 "rebind gF to create file
 nnoremap gF :edit <cfile><cr>
 colorscheme wombat256
 "colorscheme print_bw
 
 "expand tabs to spaces
-set expandtab
+"set expandtab
 
 "switch buffers with arrow keys
 nmap <silent><Left> :bprevious <cr>
@@ -179,3 +181,35 @@ nmap <silent><Right> :bnext <cr>
 
 "chuck syntax highlighting
 au BufNewFile,BufRead *.ck          setf ck 
+
+function! PrettyXML()
+  " save the filetype so we can restore it later
+  let l:origft = &ft
+  set ft=
+  " delete the xml header if it exists. This will
+  " permit us to surround the document with fake tags
+  " without creating invalid xml.
+  1s/<?xml .*?>//e
+  " insert fake tags around the entire document.
+  " This will permit us to pretty-format excerpts of
+  " XML that may contain multiple top-level elements.
+  0put ='<PrettyXML>'
+  $put ='</PrettyXML>'
+  silent %!xmllint --format -
+  " xmllint will insert an <?xml?> header. it's easy enough to delete
+  " if you don't want it.
+  " delete the fake tags
+  2d
+  $d
+  " restore the 'normal' indentation, which is one extra level
+  " too deep due to the extra tags we wrapped around the document.
+  silent %<
+  " back to home
+  1
+  " restore the filetype
+  exe "set ft=" . l:origft
+endfunction
+command! PrettyXML call PrettyXML()
+
+"processing syntax highlighting
+au BufNewFile,BufRead *.pde setf arduino

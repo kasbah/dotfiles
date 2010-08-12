@@ -9,6 +9,7 @@
 # ...or the Window Manager of your choice
 #eval `cat $HOME/.fehbg`
 feh --bg-center /home/kaspar/Pictures/yellow_eyes.png
+#xmodmap /home/kaspar/.Xmodmap
 #feh --bg-scale /home/kaspar/Pictures/Greedeater_full.jpg
 export AWT_TOOLKIT=MToolkit
 #nm-applet 
