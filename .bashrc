@@ -3,9 +3,15 @@
 #editor
 export EDITOR="/usr/bin/vim"
 #cabal path
+<<<<<<< HEAD
 PATH=$PATH:/home/kaspar/.cabal/bin/
 PATH=$PATH:/home/kaspar/bin/
 PATH=$PATH:/var/lib/gems/1.8/bin
+=======
+PATH=$PATH:~/.cabal/bin/
+PATH=$PATH:~/bin/
+PATH=$PATH:~/.gem/ruby/1.8/bin/
+>>>>>>> 9bfda491214131b2da9e9faa8751f66ff9db451d
 # Check for an interactive session
 
 #source z
@@ -33,6 +39,8 @@ alias rm='rm -i'
 alias hist='history | grep'
 alias remove='rm -f'
 alias show='gpicview'
+alias query='xdg-mime query filetype'
+alias xdgset='xdg-mime default'
 alias xp='echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\"" && xprop | grep "WM_WINDOW_ROLE\|WM_CLASS"'
 alias spotify='wine "C:\Program Files\Spotify\spotify.exe"'
 alias xo='xdg-open'
@@ -86,7 +94,7 @@ function cwd() {
 	pwd > ~/.cwd;
 }
 
-source /etc/bash_completion
+#source /etc/bash_completion
 
 #git PS1
 #GIT_PS1_SHOWDIRTYSTATE=1 #... untagged(*) and staged(+) changes
