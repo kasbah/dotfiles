@@ -2,9 +2,9 @@
 #editor
 export EDITOR="/usr/bin/vim"
 #cabal path
-PATH=$PATH:/home/kaspar/.cabal/bin/
-PATH=$PATH:/home/kaspar/bin/
-PATH=$PATH:/home/kaspar/.gem/ruby/1.9.1/bin/
+PATH=$PATH:~/.cabal/bin/
+PATH=$PATH:~/bin/
+PATH=$PATH:~/.gem/ruby/1.8/bin/
 # Check for an interactive session
 
 #source z
