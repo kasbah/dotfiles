@@ -6,6 +6,7 @@ export EDITOR="/usr/bin/vim"
 PATH=$PATH:~/.cabal/bin/
 PATH=$PATH:~/bin/
 PATH=$PATH:~/.gem/ruby/1.8/bin/
+PATH=$PATH:/var/lib/gems/1.8/bin/
 # Check for an interactive session
 
 #source z
