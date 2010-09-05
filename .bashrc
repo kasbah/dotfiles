@@ -6,6 +6,7 @@ export EDITOR="/usr/bin/vim"
 PATH=$PATH:~/.cabal/bin/
 PATH=$PATH:~/bin/
 PATH=$PATH:~/.gem/ruby/1.8/bin/
+PATH=$PATH:~/.gem/ruby/1.9.1/bin/
 PATH=$PATH:/var/lib/gems/1.8/bin/
 # Check for an interactive session
 
@@ -14,6 +15,8 @@ source ~/bin/z.sh
 function zp() {
 z $1 $2 $3 $4 && pwd
 }
+
+alias shutat="sudo /etc/rc.d/atd start && echo 'sudo halt' | at" 
 
 #timetrap sync
 alias tup="rsync ~/.timetrap.db kaspar@kaspar.webhop.net:.timetrap.db"

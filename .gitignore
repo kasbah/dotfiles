@@ -20,3 +20,6 @@
 *.o
 *.tmp
 *.sw*
+!bin/code2color
+!bin/lesspipe
+!bin/makelatexdep.pl
