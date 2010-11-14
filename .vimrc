@@ -211,5 +211,10 @@ function! PrettyXML()
 endfunction
 command! PrettyXML call PrettyXML()
 
+"xmos xc syntax highlighting
+au BufNewFile,BufRead *.xc setf xc
+
+
 "processing syntax highlighting
 au BufNewFile,BufRead *.pde setf arduino
+
