@@ -1,3 +1,13 @@
+
+"movement keys
+let g:C_Ctrl_j = 'off'
+let g:IMAP_JumpForward = 'off'
+imap <C-space> <Plug>IMAP_JumpForward
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-h> <C-w>h
+noremap <C-l> <C-w>l
+
 set nocompatible
 set autoindent
 "set expandtab
@@ -217,4 +227,3 @@ au BufNewFile,BufRead *.xc setf xc
 
 "processing syntax highlighting
 au BufNewFile,BufRead *.pde setf arduino
-

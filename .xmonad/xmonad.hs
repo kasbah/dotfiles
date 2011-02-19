@@ -75,7 +75,7 @@ myManageHook = composeAll $
 		,(isFullscreen --> doFullFloat) --full float fullscreen flash
 		]
 	where
-		floaters = ["xcalc", "galculator", "gcalctool"]
+		floaters = ["xmos2print","xcalc", "galculator", "gcalctool"]
 		ignore = ["stalonetray"]
 					 
 startup :: X ()

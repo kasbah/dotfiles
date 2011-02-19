@@ -8,12 +8,23 @@ PATH=$PATH:~/bin/
 PATH=$PATH:~/.gem/ruby/1.8/bin/
 PATH=$PATH:~/.gem/ruby/1.9.1/bin/
 PATH=$PATH:/var/lib/gems/1.8/bin/
+
+#PATH=$PATH:/opt/XMOS/DesktopTools/10.4.2/bin/
 # Check for an interactive session
+#XMOS tools
+cd /opt/XMOS/DesktopTools/10.4.2/
+. SetEnv
+cd
 
 #source z
 source ~/bin/z.sh
 function zp() {
 z $1 $2 $3 $4 && pwd
+}
+
+function cdl {
+cd $1;
+ls;
 }
 
 alias shutat="sudo /etc/rc.d/atd start && echo 'sudo halt' | at" 
@@ -104,3 +115,4 @@ function cwd() {
 #GIT_PS1_SHOWUNTRACKEDFILES=1 #... untracked files(%)
 
 #PS1='[\u@\h \W$(_git_ps1 " (%s)")]\$ '
+cd `cat ~/.cwd`

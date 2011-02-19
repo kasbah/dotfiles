@@ -1,4 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
-let g:netrw_dirhist_1='/etc/wu-ftpd'
-let g:netrw_dirhist_2='/home/kaspar/website/repo/site/wordpress/wp-content/themes/buddypress-colours/events'
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/home/kaspar/alphasphere/xmos/xmostcptests/app_simple_webserver.1v3/src'
+let g:netrw_dirhist_2='/home/kaspar/alphasphere/xmos/alphasphere/test_xsockets/src'
+let g:netrw_dirhist_3='/home/kaspar/alphasphere/xmos/merge_xsockets/alphasphere/test_xsockets/src'
