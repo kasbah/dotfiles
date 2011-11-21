@@ -1,4 +1,4 @@
-
+let mapleader=","
 "movement keys
 let g:C_Ctrl_j = 'off'
 let g:IMAP_JumpForward = 'off'
@@ -22,6 +22,8 @@ set mouse=a
 
 "auto indenting enable
 filetype indent on
+
+set expandtab
 
 "toggle search highlight
 "map <silent> <F2> :set invhlsearch<CR>
@@ -177,8 +179,13 @@ set hidden
 "set path+=./**
 "rebind gF to create file
 nnoremap gF :edit <cfile><cr>
-colorscheme wombat256
+set background=dark
+"let g:solarized_termcolors=256
+colorscheme soruby
 "colorscheme print_bw
+
+nnoremap gl vi[:s/ /_/gf]i.wikiyi]u:edit <C-r><C-r>0<cr>
+"nnoremap gl :edit <C-r><C-r>0<cr>
 
 "expand tabs to spaces
 "set expandtab
@@ -224,6 +231,13 @@ command! PrettyXML call PrettyXML()
 "xmos xc syntax highlighting
 au BufNewFile,BufRead *.xc setf xc
 
+"creole syntax highlighting
+au BufNewFile,BufRead *.wiki set syntax=creole
+au BufNewFile,BufRead *.cr set syntax=creole
 
 "processing syntax highlighting
 au BufNewFile,BufRead *.pde setf arduino
+
+"invokes sudo 
+command W w !sudo tee % > /dev/null
+

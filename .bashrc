@@ -12,9 +12,9 @@ PATH=$PATH:/var/lib/gems/1.8/bin/
 #PATH=$PATH:/opt/XMOS/DesktopTools/10.4.2/bin/
 # Check for an interactive session
 #XMOS tools
-cd /opt/XMOS/DesktopTools/10.4.2/
-. SetEnv
-cd
+#cd /opt/XMOS/DesktopTools/10.4.2/
+#. SetEnv
+#cd
 
 #source z
 source ~/bin/z.sh
@@ -26,6 +26,9 @@ function cdl {
 cd $1;
 ls;
 }
+
+#hg mercurial 
+alias hg_revert_add="hg status -an0 | xargs -0 hg revert"
 
 alias shutat="sudo /etc/rc.d/atd start && echo 'sudo halt' | at" 
 
@@ -56,29 +59,34 @@ alias query='xdg-mime query filetype'
 alias xdgset='xdg-mime default'
 alias xp='echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\"" && xprop | grep "WM_WINDOW_ROLE\|WM_CLASS"'
 alias spotify='wine "C:\Program Files\Spotify\spotify.exe"'
-alias xo='xdg-open'
+#alias xo='xdg-open'
+
+function xo () {
+  xdg-open "$1" &> /dev/null &
+}
+
 HISTSIZE=5000
 extract () {
   if [ -f $1 ] ; then
       case $1 in
-          *.tar.bz2)   tar xvjf $1    ;;
-          *.tar.gz)    tar xvzf $1    ;;
-          *.tar.xz)    tar xvJf $1    ;;
-          *.bz2)       bunzip2 $1     ;;
-          *.rar)       unrar x $1     ;;
-          *.gz)        gunzip $1      ;;
-          *.tar)       tar xvf $1     ;;
-          *.tbz2)      tar xvjf $1    ;;
-          *.tgz)       tar xvzf $1    ;;
-          *.zip)       unzip $1       ;;
-          *.Z)         uncompress $1  ;;
-          *.7z)        7z x $1        ;;
-          *.xz)        unxz $1        ;;
-          *.exe)       cabextract $1  ;;
-          *)           echo "\`$1': unrecognized file compression" ;;
+          *.tar.bz2)   tar xvjf   $1    ;;
+          *.tar.gz)    tar xvzf   $1    ;;
+          *.tar.xz)    tar xvJf   $1    ;;
+          *.bz2)       bunzip2    $1    ;;
+          *.rar)       unrar x    $1    ;;
+          *.gz)        gunzip     $1    ;;
+          *.tar)       tar xvf    $1    ;;
+          *.tbz2)      tar xvjf   $1    ;;
+          *.tgz)       tar xvzf   $1    ;;
+          *.zip)       unzip      $1    ;;
+          *.Z)         uncompress $1    ;;
+          *.7z)        7z x       $1    ;;
+          *.xz)        unxz       $1    ;;
+          *.exe)       cabextract $1    ;;
+          *)           echo "\"$1\": unrecognized file compression" ;;
       esac
   else
-      echo "\`$1' is not a valid file"
+      echo "'$1' is not a valid file"
   fi
 }
 #function to mkdir and cd into it
@@ -94,9 +102,21 @@ function lessl() {
 path=~/Downloads/$(ls -cr ~/Downloads | tail --lines=1);
 less $path;
 }
+
+function cpl() {
+path=~/Downloads/$(ls -cr ~/Downloads | tail --lines=1);
+echo "copying $path to current directory"
+cp $path .;
+}
+
+function viml() {
+path=~/Downloads/$(ls -cr ~/Downloads | tail --lines=1);
+vim $path;
+}
+
 function echol() {
 path=~/Downloads/$(ls -cr ~/Downloads | tail --lines=1);
-echo $path;
+echo "$path";
 }
 function dlast () {
 $1 $(echol)
@@ -115,4 +135,7 @@ function cwd() {
 #GIT_PS1_SHOWUNTRACKEDFILES=1 #... untracked files(%)
 
 #PS1='[\u@\h \W$(_git_ps1 " (%s)")]\$ '
-cd `cat ~/.cwd`
+#cd `cat ~/.cwd`
+
+#google calender cli
+alias gcal="gcalcli"

@@ -19,8 +19,10 @@ import XMonad.Layout.Named
 import XMonad.Actions.CycleSelectedLayouts as Cycle
 import XMonad.Actions.RotSlaves
 import XMonad.Layout.WindowNavigation
+import XMonad.Layout.SimplestFloat
 
 main = xmonad $ defaultConfig
+		--{ terminal						  = "urxvt"
 		{ terminal						  = "cat ~/.cwd | xargs urxvt -cd"
 		, modMask								= mod4Mask --rebind Mod to Windows Key
 		, manageHook						= myManageHook 
@@ -30,9 +32,10 @@ main = xmonad $ defaultConfig
 		, startupHook						= startup
 		}
 		`additionalKeys`
-		[ ((mod4Mask, xK_p), spawn "exe=`dmenu_path | /usr/bin/yeganesh -- -i -b -sb orange -nb black -nf grey` && eval \"exec $exe\"")  
-		, ((mod4Mask, xK_o),spawn "/usr/bin/dmenu_run -i -b -sb red -nb grey")  
-		, ((mod4Mask, xK_i),spawn "exe=`dmenu_path | /usr/bin/sudo /usr/bin/yeganesh --profile=sudo -- -i -b -sb black -nb yellow` && eval \"exec $exe\"")  
+		[ ((mod4Mask, xK_p), spawn "exe=`dmenu_path_c | /usr/bin/yeganesh -- -i -b -sb orange -nb black -nf grey` && eval \"exec $exe\"")  
+    , ((mod4Mask, xK_o),spawn "urxvt -e vim")
+		--, ((mod4Mask, xK_o),spawn "/usr/bin/dmenu_run -i -b -sb red -nb grey")  
+		, ((mod4Mask, xK_i),spawn "exe=`dmenu_path_c | /usr/bin/sudo /usr/bin/yeganesh --profile=sudo -- -i -b -sb black -nb yellow` && eval \"exec $exe\"")  
 		, ((mod4Mask, xK_q),spawn "killall stalonetray xmobar" >> restart "xmonad" True)
 		, ((0, 0x1008ff13 ), spawn "amixer set Master 1+")
 		, ((0, 0x1008ff11 ), spawn "amixer set Master 1-")
@@ -47,6 +50,7 @@ main = xmonad $ defaultConfig
 		, ((mod4Mask, xK_r    ), Cycle.cycleThroughLayouts ["pdf layout", "default"])
 	  , ((mod4Mask, xK_space), Cycle.cycleThroughLayouts ["full", "default"])
 	  , ((mod4Mask, xK_d    ), Cycle.cycleThroughLayouts ["two pane", "default"])
+	  , ((mod4Mask, xK_h    ), Cycle.cycleThroughLayouts ["float", "default"])
 	  , ((mod4Mask, xK_s    ), rotSlavesUp )
 	  , ((mod4Mask, xK_f    ), sendMessage ToggleStruts)
     , ((mod4Mask, xK_m    ), spawn "xcalib -invert -alter")
@@ -56,26 +60,29 @@ main = xmonad $ defaultConfig
 	  , ((mod4Mask,                 xK_Left ), sendMessage $ Go L)
 	  , ((mod4Mask,                 xK_Up   ), sendMessage $ Go U)
 	  , ((mod4Mask,                 xK_Down ), sendMessage $ Go D)
+	  , ((mod4Mask .|. controlMask,     xK_Right), spawn "xrandr -o 1 && synclient orientation=1")
+	  , ((mod4Mask .|. controlMask,     xK_Left ), spawn "xrandr -o 3 && synclient orientation=3")
+	  , ((mod4Mask .|. controlMask,     xK_Up   ), spawn "xrandr -o 2 && synclient orientation=2")
+	  , ((mod4Mask .|. controlMask,     xK_Down ),  spawn "xrandr -o 0 && synclient orientation=0")
 	  , ((mod4Mask .|. shiftMask, xK_Right), sendMessage $ Swap R)
 	  , ((mod4Mask .|. shiftMask, xK_Left ), sendMessage $ Swap L)
 	  , ((mod4Mask .|. shiftMask, xK_Up   ), sendMessage $ Swap U)
 	  , ((mod4Mask .|. shiftMask, xK_Down ), sendMessage $ Swap D)
 	]
 
-myLayoutHook = windowNavigation . avoidStruts . smartBorders $ (named "default" mouseResizableTile ||| named "two pane" (TwoPane (3/100) (1/2) ) |||  named "full" Full ||| gimpLayout ||| pdfLayout)
+myLayoutHook = windowNavigation . avoidStruts . smartBorders $ (named "default" mouseResizableTile ||| named "two pane" (TwoPane (3/100) (1/2) ) |||  named "full" Full ||| gimpLayout ||| named "float" simplestFloat)
 	where
 	gimpLayout = named "gimp layout" (simpleTabbed ****||* simpleTabbed)
-	pdfLayout = named "pdf layout" (simpleTabbed *||* mouseResizableTile)
 
 myManageHook = composeAll $ 
 	[ resource =? name --> doIgnore | name <- ignore ]
-	++[ title =? name --> doCenterFloat | name <- floaters ]
+	++[ className =? name --> doCenterFloat | name <- floaters ]
 	++[ resource =? name --> doCenterFloat | name <- floaters ]
 	++[ manageDocks <+> manageHook defaultConfig
-		,(isFullscreen --> doFullFloat) --full float fullscreen flash
+	--	,(isFullscreen --> doFullFloat) --full float fullscreen flash
 		]
 	where
-		floaters = ["xmos2print","xcalc", "galculator", "gcalctool"]
+		floaters = ["xmos2print","xcalc", "galculator", "gcalctool", "BasicWin"]
 		ignore = ["stalonetray"]
 					 
 startup :: X ()
