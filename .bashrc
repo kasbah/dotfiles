@@ -18,14 +18,21 @@ PATH=$PATH:/var/lib/gems/1.8/bin/
 
 #source z
 source ~/bin/z.sh
+
 function zp() {
 z $1 $2 $3 $4 && pwd
 }
+#source f
+source ~/bin/f.sh
 
 function cdl {
 cd $1;
 ls;
 }
+
+alias igrep="grep -I"
+
+alias dums="du -m --max-depth=1|sort -n"
 
 #hg mercurial 
 alias hg_revert_add="hg status -an0 | xargs -0 hg revert"

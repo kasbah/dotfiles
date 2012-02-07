@@ -9,8 +9,8 @@ noremap <C-h> <C-w>h
 noremap <C-l> <C-w>l
 
 set nocompatible
-set autoindent
-"set expandtab
+"set autoindent
+set noexpandtab
 "set smartindent
 set tabstop=2
 set shiftwidth=2
@@ -23,7 +23,6 @@ set mouse=a
 "auto indenting enable
 filetype indent on
 
-set expandtab
 
 "toggle search highlight
 "map <silent> <F2> :set invhlsearch<CR>

@@ -22,8 +22,8 @@ import XMonad.Layout.WindowNavigation
 import XMonad.Layout.SimplestFloat
 
 main = xmonad $ defaultConfig
-		--{ terminal						  = "urxvt"
-		{ terminal						  = "cat ~/.cwd | xargs urxvt -cd"
+		{ terminal						  = "urxvt"
+		--{ terminal						  = "cat ~/.cwd | xargs urxvt -cd"
 		, modMask								= mod4Mask --rebind Mod to Windows Key
 		, manageHook						= myManageHook 
 		, layoutHook						= myLayoutHook 
@@ -37,6 +37,7 @@ main = xmonad $ defaultConfig
 		--, ((mod4Mask, xK_o),spawn "/usr/bin/dmenu_run -i -b -sb red -nb grey")  
 		, ((mod4Mask, xK_i),spawn "exe=`dmenu_path_c | /usr/bin/sudo /usr/bin/yeganesh --profile=sudo -- -i -b -sb black -nb yellow` && eval \"exec $exe\"")  
 		, ((mod4Mask, xK_q),spawn "killall stalonetray xmobar" >> restart "xmonad" True)
+		, ((mod4Mask, xK_b),spawn "firefox")
 		, ((0, 0x1008ff13 ), spawn "amixer set Master 1+")
 		, ((0, 0x1008ff11 ), spawn "amixer set Master 1-")
 		, ((0, 0x1008ff12 ), spawn "amixer set Master toggle")
