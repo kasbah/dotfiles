@@ -1,0 +1,8 @@
+#! /bin/sh
+echo "erasing.."
+sudo dfu-programmer at90usb82 erase
+echo "reprogramming with $1"
+sudo dfu-programmer at90usb82 flash $1
+echo "reseting..."
+sudo dfu-programmer at90usb82 reset
+echo "done"

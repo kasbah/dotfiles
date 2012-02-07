@@ -1,0 +1,5 @@
+#! /bin/sh
+sudo /etc/rc.d/network stop
+sudo /etc/rc.d/net-auto-wireless stop
+sudo /etc/rc.d/wicd start
+wicd-curses
