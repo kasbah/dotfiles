@@ -71,7 +71,7 @@ z() {
   esac; local last=$1; shift; done
   [ "$fnd" ] || local list=1
   # if we hit enter on a completion just go there
-  [ -d "$last" ] && cd "$last" && return
+  [ -d "$last" ] && cd "$last" && pwd && return
   [ -f "$datafile" ] || return
   local cd="$(awk -v t="$(date +%s)" -v list="$list" -v typ="$typ" -v q="$fnd" -v tmpfl="$datafile.tmp" -F"|" '
    function frecent(rank, time) {
@@ -137,7 +137,7 @@ z() {
    rm -f $datafile.tmp
   else
    mv -f $datafile.tmp $datafile
-   [ "$cd" ] && cd "$cd"
+   [ "$cd" ] && cd "$cd" && pwd
   fi
  fi
 }

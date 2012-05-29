@@ -30,7 +30,7 @@ cd $1;
 ls;
 }
 
-alias igrep="grep -I"
+alias grep="grep -I"
 
 alias dums="du -m --max-depth=1|sort -n"
 
@@ -46,6 +46,8 @@ alias tdown="rsync kaspar@kaspar.webhop.net:.timetrap.db ~/.timetrap.db"
 #sudo bash completion
 complete -cf sudo
 alias sudo='sudo '
+
+alias sync_time="sudo ntpd -qg && sudo hwclock -w"
 
 alias sudo='A=`alias` sudo  '
 [ -z "$PS1" ] && return
@@ -70,6 +72,10 @@ alias spotify='wine "C:\Program Files\Spotify\spotify.exe"'
 
 function xo () {
   xdg-open "$1" &> /dev/null &
+}
+
+function o () {
+$1 &> /dev/null &
 }
 
 HISTSIZE=5000
@@ -103,7 +109,7 @@ mkdir -p "$@"&& eval cd "\"\$$#\"";
 #functions to help extract and move things from ~/Downloads folder
 function extractl() {
 path=~/Downloads/$(ls -cr ~/Downloads | tail --lines=1);
-extract $path;
+extract "$path";
 }
 function lessl() {
 path=~/Downloads/$(ls -cr ~/Downloads | tail --lines=1);
@@ -115,6 +121,12 @@ path=~/Downloads/$(ls -cr ~/Downloads | tail --lines=1);
 echo "copying $path to current directory"
 cp $path .;
 }
+
+function vlcl() {
+path=~/Downloads/$(ls -cr ~/Downloads | tail --lines=1);
+vlc $path;
+}
+
 
 function viml() {
 path=~/Downloads/$(ls -cr ~/Downloads | tail --lines=1);
@@ -134,6 +146,8 @@ function cwd() {
 	pwd > ~/.cwd;
 }
 
+
+source /usr/share/git/completion/git-completion.bash
 #source /etc/bash_completion
 
 #git PS1

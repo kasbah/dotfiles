@@ -8,6 +8,12 @@ noremap <C-k> <C-w>k
 noremap <C-h> <C-w>h
 noremap <C-l> <C-w>l
 
+"auto resize split windows on terminal resize
+au VimResized * wincmd =
+
+"tell grep to ignore binaries (-I)
+set grepprg=grep\ -nI\ $*\ /dev/null
+
 set nocompatible
 "set autoindent
 set noexpandtab
@@ -36,44 +42,44 @@ nmap <Ins> :set paste<CR>i
 
 nnoremap <F4> :call ToggleMouse()<CR>
 function! ToggleMouse()
-  if &mouse == 'a'
-    set mouse=
-    echo "Mouse usage disabled"
-  else
-    set mouse=a
-    echo "Mouse usage enabled"
-  endif
+if &mouse == 'a'
+	set mouse=
+	echo "Mouse usage disabled"
+else
+	set mouse=a
+	echo "Mouse usage enabled"
+endif
 endfunction
 
 " Only do this part when compiled with support for autocommands.
 
 if has("autocmd")
 
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
+" Enable file type detection.
+" Use the default filetype settings, so that mail gets 'tw' set to 72,
+" 'cindent' is on in C files, etc.
+" Also load indent files, to automatically do language-dependent indenting.
 
-  filetype plugin indent on
+filetype plugin indent on
 
-  " Put these in an autocmd group, so that we can delete them easily.
-  augroup vimrcEx
-  au!
+" Put these in an autocmd group, so that we can delete them easily.
+augroup vimrcEx
+au!
 
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
- 
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  " Also don't do it when the mark is in the first line, that is the default
-  " position when opening a file.
-  autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
+" For all text files set 'textwidth' to 78 characters.
+autocmd FileType text setlocal textwidth=78
 
-  augroup END
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+" (happens when dropping a file on gvim).
+" Also don't do it when the mark is in the first line, that is the default
+" position when opening a file.
+autocmd BufReadPost *
+	\ if line("'\"") > 1 && line("'\"") <= line("$") |
+	\   exe "normal! g`\"" |
+	\ endif
+
+augroup END
 endif " has("autocmd")
 
 "toggle ignorecase for search
@@ -199,31 +205,31 @@ nmap <silent><Right> :bnext <cr>
 au BufNewFile,BufRead *.ck          setf ck 
 
 function! PrettyXML()
-  " save the filetype so we can restore it later
-  let l:origft = &ft
-  set ft=
-  " delete the xml header if it exists. This will
-  " permit us to surround the document with fake tags
-  " without creating invalid xml.
-  1s/<?xml .*?>//e
-  " insert fake tags around the entire document.
-  " This will permit us to pretty-format excerpts of
-  " XML that may contain multiple top-level elements.
-  0put ='<PrettyXML>'
-  $put ='</PrettyXML>'
-  silent %!xmllint --format -
-  " xmllint will insert an <?xml?> header. it's easy enough to delete
-  " if you don't want it.
-  " delete the fake tags
-  2d
-  $d
-  " restore the 'normal' indentation, which is one extra level
-  " too deep due to the extra tags we wrapped around the document.
-  silent %<
-  " back to home
-  1
-  " restore the filetype
-  exe "set ft=" . l:origft
+" save the filetype so we can restore it later
+let l:origft = &ft
+set ft=
+" delete the xml header if it exists. This will
+" permit us to surround the document with fake tags
+" without creating invalid xml.
+1s/<?xml .*?>//e
+" insert fake tags around the entire document.
+" This will permit us to pretty-format excerpts of
+" XML that may contain multiple top-level elements.
+0put ='<PrettyXML>'
+$put ='</PrettyXML>'
+silent %!xmllint --format -
+" xmllint will insert an <?xml?> header. it's easy enough to delete
+" if you don't want it.
+" delete the fake tags
+2d
+$d
+" restore the 'normal' indentation, which is one extra level
+" too deep due to the extra tags we wrapped around the document.
+silent %<
+" back to home
+1
+" restore the filetype
+exe "set ft=" . l:origft
 endfunction
 command! PrettyXML call PrettyXML()
 
@@ -236,7 +242,25 @@ au BufNewFile,BufRead *.cr set syntax=creole
 
 "processing syntax highlighting
 au BufNewFile,BufRead *.pde setf arduino
+au BufNewFile,BufRead *.ino setf arduino
 
 "invokes sudo 
 command W w !sudo tee % > /dev/null
 
+command HT hi Tab ctermbg=blue
+command NHT hi Tab ctermbg=NONE
+
+let g:ropevim_vim_completion=1
+let g:ropevim_extended_complete=1
+
+au FileType python inoremap <expr> <S-Space> '<C-r>=RopeCodeAssistInsertMode()<CR><C-r>=pumvisible() ? "\<lt>C-p>\<lt>Down>" : ""<CR>'
+
+
+"python << EOF
+"import os
+"import sys
+"import vim
+"for p in sys.path:
+"    if os.path.isdir(p):
+"        vim.command(r"set path+=%s" % (p.replace(" ", r"\ ")))
+"EOF
