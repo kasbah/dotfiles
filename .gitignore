@@ -14,7 +14,8 @@
 !.terminfo*
 !.terminfo/*
 !.terminfo/*/*
-!bin/**
+!bin*
+!bin/*
 .viminfo
 .*~
 *.o
