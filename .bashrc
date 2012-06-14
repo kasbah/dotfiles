@@ -130,7 +130,7 @@ vlc $path;
 
 function viml() {
 path=~/Downloads/$(ls -cr ~/Downloads | tail --lines=1);
-vim $path;
+vim "${path}";
 }
 
 function echol() {

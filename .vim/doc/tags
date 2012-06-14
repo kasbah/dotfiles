@@ -119,6 +119,11 @@ g:visincr_datedivset	visincr.txt	/*g:visincr_datedivset*
 g:visincr_longcmd	visincr.txt	/*g:visincr_longcmd*
 i_CTRL-G_S	surround.txt	/*i_CTRL-G_S*
 i_CTRL-G_s	surround.txt	/*i_CTRL-G_s*
+rope_autoimport	ropevim.txt	/*rope_autoimport*
+rope_codeassist	ropevim.txt	/*rope_codeassist*
+rope_keys	ropevim.txt	/*rope_keys*
+rope_variables	ropevim.txt	/*rope_variables*
+ropevim.txt	ropevim.txt	/*ropevim.txt*
 surround	surround.txt	/*surround*
 surround-author	surround.txt	/*surround-author*
 surround-customizing	surround.txt	/*surround-customizing*
@@ -173,6 +178,11 @@ visincr-restrict	visincr.txt	/*visincr-restrict*
 visincr-usage	visincr.txt	/*visincr-usage*
 visincr.txt	visincr.txt	/*visincr.txt*
 vs	surround.txt	/*vs*
+xml-plugin-callbacks	xml-plugin.txt	/*xml-plugin-callbacks*
+xml-plugin-html	xml-plugin.txt	/*xml-plugin-html*
+xml-plugin-mappings	xml-plugin.txt	/*xml-plugin-mappings*
+xml-plugin-settings	xml-plugin.txt	/*xml-plugin-settings*
+xml-plugin.txt	xml-plugin.txt	/*xml-plugin.txt*
 yS	surround.txt	/*yS*
 ySS	surround.txt	/*ySS*
 ys	surround.txt	/*ys*

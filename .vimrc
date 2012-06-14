@@ -29,6 +29,15 @@ set mouse=a
 "auto indenting enable
 filetype indent on
 
+"ftplugin enable
+filetype plugin on
+
+
+"xml syntax folding
+let g:xml_syntax_folding=1
+au FileType xml setlocal foldmethod=syntax
+
+
 
 "toggle search highlight
 "map <silent> <F2> :set invhlsearch<CR>
@@ -60,7 +69,6 @@ if has("autocmd")
 " 'cindent' is on in C files, etc.
 " Also load indent files, to automatically do language-dependent indenting.
 
-filetype plugin indent on
 
 " Put these in an autocmd group, so that we can delete them easily.
 augroup vimrcEx
@@ -255,6 +263,8 @@ let g:ropevim_extended_complete=1
 
 au FileType python inoremap <expr> <S-Space> '<C-r>=RopeCodeAssistInsertMode()<CR><C-r>=pumvisible() ? "\<lt>C-p>\<lt>Down>" : ""<CR>'
 
+"FLTK treat as cpp
+au BufNewFile,BufRead *.fl set ft=cpp
 
 "python << EOF
 "import os
