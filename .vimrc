@@ -126,6 +126,7 @@ nmap <C-c> "+Y     " Yank current line into system clipboard (if nothing is sele
 nmap <C-n> <C-q>
 nmap <C-v> "+p
 
+
 "au FileType haskell,vhdl,ada let b:comment_leader = '-- '
 "au FileType vim let b:comment_leader = '" '
 "au FileType c,cpp,java let b:comment_leader = '// '
@@ -248,9 +249,12 @@ au BufNewFile,BufRead *.xc setf xc
 au BufNewFile,BufRead *.wiki set syntax=creole
 au BufNewFile,BufRead *.cr set syntax=creole
 
-"processing syntax highlighting
+"arduino syntax highlighting
 au BufNewFile,BufRead *.pde setf arduino
 au BufNewFile,BufRead *.ino setf arduino
+
+"graphviz dot language highlighting
+au BufNewFile,BufRead *.gv setf dot
 
 "invokes sudo 
 command W w !sudo tee % > /dev/null

@@ -8,6 +8,7 @@
 #feh --bg-scale /home/kaspar/Pictures/space.jpg
 #feh --bg-center /home/kaspar/Pictures/newyork.jpg
 #feh --bg-center /home/kaspar/Pictures/Old_Typewritter.jpg
-feh --bg-center /home/kaspar/Pictures/patterns.jpg
+#feh --bg-center /home/kaspar/Pictures/patterns.jpg
+feh --bg-scale /home/kaspar/Pictures/rubberbands.jpg
 xsetroot -cursor_name left_pntr
 xmonad

@@ -1,5 +1,5 @@
 #set -o vi
-
+shopt -s promptvars
 #editor
 export EDITOR="/usr/bin/vim"
 #cabal path
@@ -30,6 +30,8 @@ cd $1;
 ls;
 }
 
+alias v="vim -R -"
+
 alias grep="grep -I"
 
 alias dums="du -m --max-depth=1|sort -n"
@@ -52,7 +54,7 @@ alias sync_time="sudo ntpd -qg && sudo hwclock -w"
 alias sudo='A=`alias` sudo  '
 [ -z "$PS1" ] && return
 alias ls='ls --color=auto'
-PS1='[\u@\h \W]\$ '
+#PS1='[\u@\h \W]\$ '
 alias et='urxvt &'
 alias web='firefox &'
 alias jd='java -jar ~/JDownloader/JDownloader.jar &'
@@ -160,3 +162,21 @@ source /usr/share/git/completion/git-completion.bash
 
 #google calender cli
 alias gcal="gcalcli"
+
+#PS1="[\u@\h \W]\$ "
+#PS1='[\W] $(printf '%3.3d' $?) \$ '
+PS1='[\W]$(printf '%.*s' $? $?)\$ '
+
+set title of term to prompt
+case $TERM in
+	 *rxvt-256color*)
+			PS1="\[\e]2;\W - urxvt\a\]$PS1"
+			;;
+   xterm*|*rxvt*|Eterm|eterm|rxvt-unicode|urxvt)
+			PS1="\[\e]2;\W - $TERM\a\]$PS1"
+			;;
+
+  #screen)
+  #   PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
+  #   ;;
+esac
