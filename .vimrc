@@ -16,11 +16,11 @@ set grepprg=grep\ -nI\ $*\ /dev/null
 
 set nocompatible
 "set autoindent
-set noexpandtab
-"set smartindent
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set expandtab
+"set cindent
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 
 "syntax colouring
 syntax enable 
@@ -50,6 +50,7 @@ nmap <S-i> :set nopaste<CR>i
 nmap <Ins> :set paste<CR>i
 
 nnoremap <F4> :call ToggleMouse()<CR>
+nnoremap <F5> :set cursorcolumn! cursorline!<CR>
 function! ToggleMouse()
 if &mouse == 'a'
 	set mouse=
@@ -120,9 +121,11 @@ au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl setf glsl
 "autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 "autocmd FileType c set omnifunc=ccomplete#Complete
 
+"Yank current selection into system clipboard
+"Yank current line into system clipboard (if nothing is selected)
 
-vmap <C-c> "+y     " Yank current selection into system clipboard
-nmap <C-c> "+Y     " Yank current line into system clipboard (if nothing is selected)
+vmap <C-c> "+y     
+"nmap <C-c> "+Y     
 nmap <C-n> <C-q>
 nmap <C-v> "+p
 
@@ -162,7 +165,7 @@ au BufNewFile,BufRead *.yaml,*.yml,*yaml.st set syntax=yaml
 "pandoc syntax
 au! Bufread,BufNewFile *.pdc  set filetype=pdc
 "markdown syntax
-au! Bufread,BufNewFile .page,*.st    set filetype=mkd
+"au! Bufread,BufNewFile .page,*.st    set filetype=mkd
 
 "CTRL -Z
 imap <C-z> <ESC> <C-z> 
@@ -278,3 +281,13 @@ au BufNewFile,BufRead *.fl set ft=cpp
 "    if os.path.isdir(p):
 "        vim.command(r"set path+=%s" % (p.replace(" ", r"\ ")))
 "EOF
+
+"swig syntax highlighting
+au BufNewFile,BufRead *.i set filetype=swig
+au BufNewFile,BufRead *.swg set filetype=swig
+
+"use the anonymous register
+"allowing y and p across vim instances
+set clipboard=unnamed
+
+call pathogen#infect()

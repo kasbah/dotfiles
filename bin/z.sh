@@ -203,10 +203,11 @@ _z() {
   ' "$datafile")"
   [ $? -gt 0 ] && return
   [ "$cd" ] && cd "$cd"
+	pwd;
  fi
 }
 
-alias ${_Z_CMD:-z}='_z 2>&1'
+alias ${_Z_CMD:-z}='_z 2>&1' 
 
 if complete &> /dev/null; then
  # bash tab completion

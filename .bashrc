@@ -1,13 +1,5 @@
 #set -o vi
 shopt -s promptvars
-#editor
-export EDITOR="/usr/bin/vim"
-#cabal path
-PATH=$PATH:~/.cabal/bin/
-PATH=$PATH:~/bin/
-PATH=$PATH:~/.gem/ruby/1.8/bin/
-PATH=$PATH:~/.gem/ruby/1.9.1/bin/
-PATH=$PATH:/var/lib/gems/1.8/bin/
 
 #PATH=$PATH:/opt/XMOS/DesktopTools/10.4.2/bin/
 # Check for an interactive session
@@ -29,6 +21,8 @@ function cdl {
 cd $1;
 ls;
 }
+
+alias cdd=". ~/bin/cdd.sh"
 
 alias v="vim -R -"
 
@@ -66,7 +60,7 @@ alias rm='rm -i'
 alias hist='history | grep'
 alias remove='rm -f'
 alias show='gpicview'
-alias query='xdg-mime query filetype'
+alias xdgquery='xdg-mime query filetype'
 alias xdgset='xdg-mime default'
 alias xp='echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\"" && xprop | grep "WM_WINDOW_ROLE\|WM_CLASS"'
 alias spotify='wine "C:\Program Files\Spotify\spotify.exe"'
@@ -110,37 +104,39 @@ mkdir -p "$@"&& eval cd "\"\$$#\"";
 }
 #functions to help extract and move things from ~/Downloads folder
 function extractl() {
-path=~/Downloads/$(ls -cr ~/Downloads | tail --lines=1);
+path="~/Downloads/$(ls -crb ~/Downloads | tail --lines=1)";
 extract "$path";
 }
 function lessl() {
-path=~/Downloads/$(ls -cr ~/Downloads | tail --lines=1);
+path=~/Downloads/$(ls -crb ~/Downloads | tail --lines=1);
 less $path;
 }
 
 function cpl() {
 path=~/Downloads/$(ls -cr ~/Downloads | tail --lines=1);
 echo "copying $path to current directory"
-cp $path .;
+cp "$path" .;
 }
 
 function vlcl() {
 path=~/Downloads/$(ls -cr ~/Downloads | tail --lines=1);
-vlc $path;
+vlc "$path";
 }
 
 
 function viml() {
 path=~/Downloads/$(ls -cr ~/Downloads | tail --lines=1);
-vim "${path}";
+vim "$path";
 }
 
 function echol() {
-path=~/Downloads/$(ls -cr ~/Downloads | tail --lines=1);
-echo "$path";
+path="~/Downloads/$(ls -cr ~/Downloads | tail --lines=1)";
+echo $path;
 }
-function dlast () {
-$1 $(echol)
+
+function xl() {
+path=~/Downloads/$(ls -crb ~/Downloads | tail --lines=1);
+xo $path;
 }
 
 #working dir switching
@@ -161,20 +157,21 @@ source /usr/share/git/completion/git-completion.bash
 #cd `cat ~/.cwd`
 
 #google calender cli
-alias gcal="gcalcli"
+#alias gcal="gcalcli"
 
 #PS1="[\u@\h \W]\$ "
 #PS1='[\W] $(printf '%3.3d' $?) \$ '
-PS1='[\W]$(printf '%.*s' $? $?)\$ '
-
-set title of term to prompt
-case $TERM in
-	 *rxvt-256color*)
-			PS1="\[\e]2;\W - urxvt\a\]$PS1"
-			;;
-   xterm*|*rxvt*|Eterm|eterm|rxvt-unicode|urxvt)
-			PS1="\[\e]2;\W - $TERM\a\]$PS1"
-			;;
+    #PS1='$(printf "%.*s" $? $?)[\W]\$ '
+    PS1='$(printf "%d" $?)[\W]\$ '
+    
+    #set title of term to prompt
+    case $TERM in
+    	 *rxvt-256color*)
+    			PS1="\[\e]2;\W - urxvt\a\]$PS1"
+    			;;
+       xterm*|*rxvt*|Eterm|eterm|rxvt-unicode|urxvt)
+    			PS1="\[\e]2;\W - $TERM\a\]$PS1"
+    			;;
 
   #screen)
   #   PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'

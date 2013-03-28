@@ -8,12 +8,12 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
                       Run MultiCpu ["-t", "cpu0: <total0>% cpu1: <total1>%", "-L","30","-H","70","--low","green","--normal","orange","--high","red"] 10
                     , Run Memory ["-t","Mem: <usedratio>%","-L", "30", "-H","70","--low","green","--normal","orange","--high","red"] 10
                     , Run Swap [] 10
-										--, Run Volume "default" "Master" [] 10
-										--, Run Wireless "wlan0" [] 10
-										, Run Battery ["-t","batt: <left>","-L", "30", "-H", "70", "--low","red", "--normal","orange","--high","green"] 10
-										,	Run Network "wlan0" ["-L","0","-H","32","--normal","green","--high","red"] 10
-                    --, Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
-                    , Run Network "eth0" [] 10
+					, Run Volume "default" "Master" ["-t", "Vol: <volume>% <status>", "--high", "red", "--normal", "orange", "--low", "green", "--", "-C", "orange", "-c", "grey"] 10
+				    --, Run Wireless "wlan0" [] 10
+					, Run Battery ["-t","batt: <left>","-L", "30", "-H", "70", "--low","red", "--normal","orange","--high","green"] 10
+					, Run Network "wlan0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+                    , Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+                    --, Run Network "eth0" [] 10
                     , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
 										--, Run Com "sh" ["~/bin/battery.sh"] "status" 10
 										--, Run Com "sh" ["~/bin/amixer_get.sh"] "audio" 1
