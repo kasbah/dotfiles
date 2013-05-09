@@ -104,8 +104,8 @@ mkdir -p "$@"&& eval cd "\"\$$#\"";
 }
 #functions to help extract and move things from ~/Downloads folder
 function extractl() {
-path="~/Downloads/$(ls -crb ~/Downloads | tail --lines=1)";
-extract "$path";
+path=~/Downloads/$(ls -crb ~/Downloads | tail --lines=1);
+extract $path;
 }
 function lessl() {
 path=~/Downloads/$(ls -crb ~/Downloads | tail --lines=1);

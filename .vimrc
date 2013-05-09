@@ -290,4 +290,10 @@ au BufNewFile,BufRead *.swg set filetype=swig
 "allowing y and p across vim instances
 set clipboard=unnamed
 
+"lisalo -- linuxsampler loader
+au BufNewFile,BufRead *.lsl set filetype=sh
+
+"kicad
+au BufNewFile,BufRead *.kicad_mod,*.kicad_pcb set filetype=lisp
+
 call pathogen#infect()

@@ -99,7 +99,7 @@ myManageHook = composeAll $
 	where
 		--gimp = (className =? “Gimp” (fmap (win `isSuffixOf`) role))
 		role = stringProperty "WM_WINDOW_ROLE"
-		floaters = ["xcalc", "galculator", "gcalctool", "BasicWin"]
+		floaters = ["xcalc", "galculator", "gcalctool", "BasicWin", "not found."]
 		ignore = ["stalonetray", "xfce4-notifyd"]
 		minResizeTransform :: (Rational,Rational) -> Side -> (Rational,Rational) -> W.RationalRect -> W.RationalRect
 		minResizeTransform (wmin,hmin) orientation (xratio,yratio) (W.RationalRect x y w h)

@@ -14,6 +14,9 @@
 #feh --bg-center /home/kaspar/Pictures/micro_ant.jpg
 #feh --bg-scale /home/kaspar/Pictures/gulls.jpg
 #feh --bg-scale /home/kaspar/Pictures/calvin_snow_zombie.jpg
+
 feh --bg-center /home/kaspar/Pictures/proton.jpg
 xsetroot -cursor_name left_ptr
 xmonad
+
+#exec startxfce4
